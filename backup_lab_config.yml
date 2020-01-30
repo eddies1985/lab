@@ -1,5 +1,5 @@
 ---
-- name: lab_config
+- name: lab_config_backup
   hosts: golden_onyx
   gather_facts: no
   strategy: free
@@ -14,28 +14,50 @@
     debug: True
   tasks:
 
+  - shell: date +%d_%m_%Y
+    register: today
+
   - onyx_config:
      backup: yes
+     backup_options:
+       dir_path: "{{playbook_dir}}/backup/{{today.stdout}}"
+       filename: "{{inventory_hostname}}.conf"
      commands:
         - show version concise
+    register: files_backup
+
+  - debug:
+      var: files_backup
+      verbosity: 2
+  - debug:
+       msg: "{{files_backup.backup_path}}"
+       verbosity: 2
+
+
 
     #- name: remove_known_host_entries
     #  onyx_config:
     #   commands: ssh client user admin known-host "{{remote_ip}}" remove
 
     #
-    # - import_role:
-    #    name: send_mail
-    #   vars:
-    #    mail_body: "Playbook used: {{ansible_play_name}} "
-    #    mail_server: "10.0.8.70"
-    #    mail_subject: "GSO Network Golden lab: do-not-reply: {{ inventory_hostname }} has been successfully provisioned"
-    #    mail_from: "eddies@mellanox.com"
-    #    mail_to_list:
-    #       - eddies@mellanox.com
-    #       - hagaia@mellanox.com
-    #       - marlon@mellanox.com
-    #       - denisyu@mellanox.com
-    #       - oria@mellanox.com
-    #   when: send_mail == "True"
-    #   tags: send_mail == "True"
+  - import_role:
+        name: send_mail
+    vars:
+      mail_body: "Playbook used: {{ansible_play_name}} {{lookup('file', '{{files_backup.backup_path}}') }}"
+      mail_server: "10.0.8.70"
+      mail_subject: "GSO Network Golden lab: do-not-reply: {{ inventory_hostname }} configuration backup {{today.stdout}}"
+      attach: "{{files_backup.backup_path}}"
+      mail_from: "eddies@mellanox.com"
+      mail_to_list:
+         - eddies@mellanox.com
+         - hagaia@mellanox.com
+         - marlon@mellanox.com
+         - denisyu@mellanox.com
+         - oria@mellanox.com
+    when: send_mail == "True"
+    tags: send_mail
+
+#  - find:
+#     paths: "{{playbook_dir}}/backup/{{today.stdout}}"
+#     patterns: "*.conf"
+#    register: all_conf_files
