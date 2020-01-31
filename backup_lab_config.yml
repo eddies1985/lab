@@ -9,12 +9,13 @@
   vars:
     #ansible_python_interpreter: /usr/bin/python3
     send_mail: False
+    send_mail_secure: never
     ansible_network_os: onyx
     log_path: ./ansible.log
     debug: True
   tasks:
 
-  - shell: date +%d_%m_%Y
+  - shell: date +%d_%m_%Y_%H_%M
     register: today
 
   - onyx_config:
@@ -32,8 +33,6 @@
   - debug:
        msg: "{{files_backup.backup_path}}"
        verbosity: 2
-
-
 
     #- name: remove_known_host_entries
     #  onyx_config:
@@ -54,6 +53,7 @@
          - marlon@mellanox.com
          - denisyu@mellanox.com
          - oria@mellanox.com
+      secure: "{{send_mail_secure}}"
     when: send_mail == "True"
     tags: send_mail
 

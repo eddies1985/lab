@@ -8,4 +8,5 @@
      to: "{{mail_to_list}}"
      attach: "{{attach}}"
      timeout: 60
+     secure: "{{secure}}"
   delegate_to: localhost
