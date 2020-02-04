@@ -61,8 +61,8 @@
     vars:
       mail_body: "Playbook used: {{ansible_play_name}} {{lookup('file', '{{files_backup.backup_path}}') }}"
       mail_server: "10.0.8.70"
-      mail_subject: "GSO Network Golden lab: do-not-reply: {{ inventory_hostname }} configuration backup {{today.stdout}}"
-      attach: "{{files_to_send}}"
+      mail_subject: "GSO Network Golden lab: do-not-reply: Summary mail - all devices configuration files backup {{today.stdout}}"
+      attach: "{{ files_to_send.stdout_lines }}"
       mail_from: "eddies@mellanox.com"
       mail_to_list:
          - eddies@mellanox.com
@@ -73,3 +73,4 @@
       secure: "{{send_mail_secure}}"
     when: send_mail == "True"
     tags: send_mail
+    run_once: True
