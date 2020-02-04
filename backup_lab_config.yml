@@ -52,14 +52,14 @@
     when: send_mail == "True"
     tags: send_mail
 
-  - shell: cd {{files_backup.backup_path}} ; find . -maxdepth 1 -type f | cut -d'/' -f2
+  - shell: cd {{playbook_dir}}/backup/{{today.stdout}} ; find . -maxdepth 1 -type f | cut -d'/' -f2
     register: files_to_send
     run_once: True
 
   - import_role:
         name: send_mail
     vars:
-      mail_body: "Playbook used: {{ansible_play_name}} {{lookup('file', '{{files_backup.backup_path}}') }}"
+      mail_body: "Playbook used: {{ansible_play_name}}"
       mail_server: "10.0.8.70"
       mail_subject: "GSO Network Golden lab: do-not-reply: Summary mail - all devices configuration files backup {{today.stdout}}"
       attach: "{{ files_to_send.stdout_lines }}"
