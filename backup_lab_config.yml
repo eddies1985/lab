@@ -34,11 +34,6 @@
        msg: "{{files_backup.backup_path}}"
        verbosity: 2
 
-    #- name: remove_known_host_entries
-    #  onyx_config:
-    #   commands: ssh client user admin known-host "{{remote_ip}}" remove
-
-    #
   - import_role:
         name: send_mail
     vars:
@@ -57,7 +52,24 @@
     when: send_mail == "True"
     tags: send_mail
 
-#  - find:
-#     paths: "{{playbook_dir}}/backup/{{today.stdout}}"
-#     patterns: "*.conf"
-#    register: all_conf_files
+  - shell: cd {{files_backup.backup_path}} ; find . -maxdepth 1 -type f | cut -d'/' -f2
+    register: files_to_send
+    run_once: True
+
+  - import_role:
+        name: send_mail
+    vars:
+      mail_body: "Playbook used: {{ansible_play_name}} {{lookup('file', '{{files_backup.backup_path}}') }}"
+      mail_server: "10.0.8.70"
+      mail_subject: "GSO Network Golden lab: do-not-reply: {{ inventory_hostname }} configuration backup {{today.stdout}}"
+      attach: "{{files_to_send}}"
+      mail_from: "eddies@mellanox.com"
+      mail_to_list:
+         - eddies@mellanox.com
+         - hagaia@mellanox.com
+         - marlon@mellanox.com
+         - denisyu@mellanox.com
+         - oria@mellanox.com
+      secure: "{{send_mail_secure}}"
+    when: send_mail == "True"
+    tags: send_mail

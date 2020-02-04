@@ -28,11 +28,10 @@
     source_file: "{{local_path}}/sx_mlnx_os-{{ version }}/{{ cpu  }}/image-{{ cpu }}-{{ version }}.img"
     software_upgrade: "False"
     change_hostname: "True"
+    ignore_net_errors: "True"
     log_path: ./ansible.log
     debug: True
   tasks:
-
-
     - import_role:
         name: onyx_clean_config
       tags: clean_config
