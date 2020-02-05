@@ -1,5 +1,7 @@
 #  ansible 'hosts' file.
 localhost  ansible_connection=local ansible_host=127.0.0.1 ansible_ssh_user=eddies ansible_ssh_pass=eddies11 ansible_become=yes ansible_become_method=sudo ansible_connection=local ansible_python_interpreter="{{ansible_playbook_python}}"
+l-csivm-010 ansible_ssh_user=root ansible_ssh_pass=3tango
+
 
 [ONYX]
 [ONYX:children]
