@@ -60,8 +60,8 @@
   - copy:
      src: "{{ playbook_dir}}/backup/{{today.stdout }}"
      dest: /swgwork/eddies/golden_lab/backup/
-     run_once: True
-     delegate_to: l-csivm-010
+    run_once: True
+    delegate_to: l-csivm-010
 
   - import_role:
         name: send_mail
