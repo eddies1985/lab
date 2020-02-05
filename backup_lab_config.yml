@@ -2,7 +2,7 @@
 - name: lab_config_backup
   hosts: golden_onyx
   gather_facts: no
-  strategy: free
+  #strategy: free
   connection: network_cli
   become: yes
   become_method: enable
@@ -26,6 +26,7 @@
      commands:
         - show version concise
     register: files_backup
+    ignore_errors: yes
 
   - debug:
       var: files_backup
@@ -34,35 +35,13 @@
        msg: "{{files_backup.backup_path}}"
        verbosity: 2
 
-  - import_role:
-        name: send_mail
-    vars:
-      mail_body: "Playbook used: {{ansible_play_name}} {{lookup('file', '{{files_backup.backup_path}}') }}"
-      mail_server: "10.0.8.70"
-      mail_subject: "GSO Network Golden lab: do-not-reply: {{ inventory_hostname }} configuration backup {{today.stdout}}"
-      attach: "{{files_backup.backup_path}}"
-      mail_from: "eddies@mellanox.com"
-      mail_to_list:
-         - eddies@mellanox.com
-         - hagaia@mellanox.com
-         - marlon@mellanox.com
-         - denisyu@mellanox.com
-         - oria@mellanox.com
-      secure: "{{send_mail_secure}}"
-    when: send_mail == "True"
-    tags: send_mail
-
-  # - shell: cd {{playbook_dir}}/backup/{{today.stdout}} ; find . -maxdepth 1 -type f | cut -d'/' -f2
-  #   register: files_to_send
-  #   run_once: True
-  #
   # - import_role:
   #       name: send_mail
   #   vars:
-  #     mail_body: "Playbook used: {{ansible_play_name}}"
+  #     mail_body: "Playbook used: {{ansible_play_name}} {{lookup('file', '{{files_backup.backup_path}}') }}"
   #     mail_server: "10.0.8.70"
-  #     mail_subject: "GSO Network Golden lab: do-not-reply: Summary mail - all devices configuration files backup {{today.stdout}}"
-  #     attach: "{{ files_to_send.stdout_lines }}"
+  #     mail_subject: "GSO Network Golden lab: do-not-reply: {{ inventory_hostname }} configuration backup {{today.stdout}}"
+  #     attach: "{{files_backup.backup_path}}"
   #     mail_from: "eddies@mellanox.com"
   #     mail_to_list:
   #        - eddies@mellanox.com
@@ -73,4 +52,26 @@
   #     secure: "{{send_mail_secure}}"
   #   when: send_mail == "True"
   #   tags: send_mail
-  #   run_once: True
+
+  - shell: find {{playbook_dir}}/backup/{{today.stdout}} -maxdepth 1 -type f | cut -d'/' -f2
+    register: files_to_send
+    run_once: True
+
+  - import_role:
+        name: send_mail
+    vars:
+      mail_body: "Playbook used: {{ansible_play_name}}"
+      mail_server: "10.0.8.70"
+      mail_subject: "GSO Network Golden lab: do-not-reply: Summary mail - all devices configuration files backup {{today.stdout}}"
+      attach: "{{ files_to_send.stdout_lines }}"
+      mail_from: "eddies@mellanox.com"
+      mail_to_list:
+         - eddies@mellanox.com
+         - hagaia@mellanox.com
+         - marlon@mellanox.com
+         - denisyu@mellanox.com
+         - oria@mellanox.com
+      secure: "{{send_mail_secure}}"
+    when: send_mail == "True"
+    tags: send_mail
+    run_once: True
