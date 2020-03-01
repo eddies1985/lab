@@ -38,11 +38,12 @@
       flat: no
     loop: "{{cumulus_config_files}}"
 
-  - name: copy directories
+  - name: copy_directories
     synchronize:
       mode: pull
       src: "{{item}}"
       dest: "{{backup_dir}}/{{today.stdout }}/{{ansible_hostname}}/"
+      use_ssh_args: yes
     loop: "{{cumulus_directories}}"
 
 #  - shell: 'find {{backup_dir/{{today.stdout}} -maxdepth 10 -type f'
