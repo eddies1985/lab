@@ -45,7 +45,7 @@
     register: acl_files_to_copy
 
   - debug:
-     var: {{acl_files_to_copy.stdout_lines}} 
+     var: "{{acl_files_to_copy.stdout_lines}}" 
   - name: copy_directories
     fetch:
       src: "{{item}}"
