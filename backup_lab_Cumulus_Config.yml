@@ -45,13 +45,16 @@
     register: acl_files_to_copy
 
   - debug:
-     var: "{{acl_files_to_copy.stdout_lines}}"
+     msg: "{{acl_files_to_copy.stdout_lines}}"
   - name: copy_directories
     fetch:
       src: "{{item}}"
       dest: "{{backup_dir}}/{{today.stdout }}/{{ansible_hostname}}/"
     with_items:
       - "{{acl_files_to_copy.stdout_lines}}"
+
+  - debug:
+     msg: "{{backup_dir}}/{{today.stdout }}/{{ansible_hostname}}/"
 
 #  - shell: 'find {{backup_dir/{{today.stdout}} -maxdepth 10 -type f'
 #    register: files_to_send
