@@ -33,15 +33,16 @@
 
   - name: fetch_single_files
     fetch:
-      dest: "{{backup_dir}}{{today.stdout }}/{{ansible_hostname}}/"
+      dest: "{{backup_dir}}/{{today.stdout }}/{{ansible_hostname}}/"
       src: "{{ item }}"
       flat: no
     loop: "{{cumulus_config_files}}"
 
   - name: copy directories
-    copy:
+    synchronize:
+      mode: pull
       src: "{{item}}"
-      dest: "{{backup_dir}}{{today.stdout }}/{{ansible_hostname}}/"
+      dest: "{{backup_dir}}/{{today.stdout }}/{{ansible_hostname}}/"
     loop: "{{cumulus_directories}}"
 
 #  - shell: 'find {{backup_dir/{{today.stdout}} -maxdepth 10 -type f'
