@@ -23,12 +23,17 @@
       # '| grep net' removes all non-net commands (e.g. comments)
       # '| grep -v dot1x removes dot1x commands when not configured, see internal Cumulus Networks bug CM-17143
       # '| grep -v "del all"' removes the del all command from the beginning of the output, otherwise replay won't be idempotent
+  - name: net_show_conf_files
+    shell: net show configuration files  | grep -B 1 "===" | egrep -v "===|--" >  /home/cumulus/{{ansible_hostname}}_nclu_conf'
 
   - name: fetch the nclu config  and store it locally
     fetch:
-      dest: "{{backup_dir}}/{{today.stdout}}/"
-      src: "/home/cumulus/{{ansible_hostname}}_nclu"
+      dest: "{{backup_dir}}/{{today.stdout}}/{{inventory_hostname}}/"
+      src: "{{item}}"
       flat: yes
+    loop:
+     - "/home/cumulus/{{ansible_hostname}}_nclu"
+     - /home/cumulus/{{ansible_hostname}}_nclu_conf'
     # This task grabs the output from the previous command and stores it as a flat-file locally on the machine running ansible
 
   - name: fetch_single_files
@@ -100,3 +105,6 @@
     tags: send_mail
     run_once: True
     delegate_to: localhost
+
+    debug:
+      msg: "{{ files_to_send.stdout_lines }}"
