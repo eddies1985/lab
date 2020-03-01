@@ -1,5 +1,5 @@
 ---
-- name: lab_config_backup
+- name: lab_cumulus_config_backup
   hosts: golden_cumulus
   gather_facts: True
   #strategy: free
