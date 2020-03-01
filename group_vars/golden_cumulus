@@ -11,5 +11,5 @@ cumulus_config_files:
   - /etc/lsb-release
 
 cumulus_directories:
-  - /etc/network/interfaces.d/
-  - /etc/cumulus/acl/policy.d/
+  - /etc/network/interfaces.d
+  - /etc/cumulus/acl/policy.d
