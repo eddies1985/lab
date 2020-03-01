@@ -40,4 +40,4 @@ golden-leaf4 ansible_host=l-csi-gso-2410a1-026
 ansible_ssh_user=cumulus
 ansible_ssh_pass=CumulusLinux!
 ansible_become_method=sudo
-ansible_become_password={{becomepass}}
+ansible_become_password=CumulusLinux!
