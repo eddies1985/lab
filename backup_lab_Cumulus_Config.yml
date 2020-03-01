@@ -39,17 +39,17 @@
     loop: "{{cumulus_config_files}}"
 
   - name: backup ACL
-    shell:  find . -maxdepth 1 -type f | cut -d'/' -f2
-    args:
-     chdir:  /etc/cumulus/acl/policy.d/
+    shell:  find /etc/cumulus/acl/policy.d/ -maxdepth 1 -type f | cut -d'/' -f2
+    #args:
+     #chdir:  /etc/cumulus/acl/policy.d/
     register: acl_files_to_copy
 
   - name: copy_directories
     fetch:
-      src: "/etc/cumulus/acl/policy.d/{{item}}"
+      src: "{{item}}"
       dest: "{{backup_dir}}/{{today.stdout }}/{{ansible_hostname}}/"
     loop:
-      - "{{acl_files_to_copy}}"
+      - "{{acl_files_to_copy.stdout_lines}}"
 
 #  - shell: 'find {{backup_dir/{{today.stdout}} -maxdepth 10 -type f'
 #    register: files_to_send
