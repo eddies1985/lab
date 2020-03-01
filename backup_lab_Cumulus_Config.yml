@@ -38,6 +38,12 @@
       flat: no
     loop: "{{cumulus_config_files}}"
 
+  - name: copy directories
+    copy:
+      src: "{{item}}"
+      dest: "{{backup_dir}}{{today.stdout }}/{{ansible_hostname}}/"
+    loop: "{{cumulus_directories}}"
+
 #  - shell: 'find {{backup_dir/{{today.stdout}} -maxdepth 10 -type f'
 #    register: files_to_send
 #    run_once: True
