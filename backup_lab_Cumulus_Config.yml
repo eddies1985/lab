@@ -23,8 +23,9 @@
       # '| grep net' removes all non-net commands (e.g. comments)
       # '| grep -v dot1x removes dot1x commands when not configured, see internal Cumulus Networks bug CM-17143
       # '| grep -v "del all"' removes the del all command from the beginning of the output, otherwise replay won't be idempotent
+
   - name: net_show_conf_files
-    shell: net show configuration files  | grep -B 1 "===" | egrep -v ''===|--'' >  /home/cumulus/{{ansible_hostname}}_nclu_conf
+    shell: net show configuration files  | grep -B 1 '===' | egrep -v '===|--' >  /home/cumulus/{{ansible_hostname}}_nclu_conf
 
   - name: fetch the nclu config  and store it locally
     fetch:
