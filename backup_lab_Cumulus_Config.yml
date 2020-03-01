@@ -17,13 +17,6 @@
   - shell: date +%d_%m_%Y_%H_%M
     register: today
 
-  - debug:
-      var: files_backup
-      verbosity: 2
-  - debug:
-       msg: "{{files_backup.backup_path}}"
-       verbosity: 2
-
   - name: net show config
     shell: 'net show config commands | grep net | grep -v dot1x | grep -v "del all" | grep -v "breakout 1x" > /home/cumulus/{{ansible_hostname}}_nclu'
       #xxplanation of  grep commands
