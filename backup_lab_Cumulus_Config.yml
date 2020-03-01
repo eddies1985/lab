@@ -78,7 +78,7 @@
   - shell: find {{backup_dir}}/{{today.stdout }}/ -maxdepth 1 -type f -name "*.tgz"
     register: files_to_send
     run_once: True
-    delegate_to: localost
+    delegate_to: localhost
 
 
   - import_role:
@@ -99,3 +99,4 @@
     when: send_mail == "True"
     tags: send_mail
     run_once: True
+    delegate_to: localhost
