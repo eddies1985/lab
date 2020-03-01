@@ -106,5 +106,5 @@
     run_once: True
     delegate_to: localhost
 
-    debug:
+  - debug:
       msg: "{{ files_to_send.stdout_lines }}"
