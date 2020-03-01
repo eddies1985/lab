@@ -74,8 +74,12 @@
       dest: "{{backup_dir}}/{{today.stdout }}/{{inventory_hostname}}.tgz"
       format: gz
     delegate_to: localhost
-  - shell: find "{{backup_dir}}/{{today.stdout }}/ -maxdepth 1 -type f -name "*.tgz"
+
+  - shell: find {{backup_dir}}/{{today.stdout }}/ -maxdepth 1 -type f -name "*.tgz"
     register: files_to_send
+    run_once: True
+    delegate_to: localost
+
 
   - import_role:
         name: send_mail
