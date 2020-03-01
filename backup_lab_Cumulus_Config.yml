@@ -46,7 +46,7 @@
 
   - name: copy_directories
     fetch:
-      src: "{{item}}"
+      src: "/etc/cumulus/acl/policy.d/{{item}}"
       dest: "{{backup_dir}}/{{today.stdout }}/{{ansible_hostname}}/"
     loop:
       - "{{acl_files_to_copy}}"
