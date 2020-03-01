@@ -38,9 +38,6 @@
       flat: no
     loop: "{{cumulus_config_files}}"
 
-  - fetch: src=/etc/cumulus/acl/policy.d/{{ item }} dest=/var/config-backup/cumulus/{{ansible_hostname}}/acl/ flat=yes
-      with_items: "{{ files_to_copy.stdout_lines }}"
-
 - name: backup ACL
   shell:  find . -maxdepth 1 -type f) | cut -d'/' -f2
    chdir:  /etc/cumulus/acl/policy.d/
