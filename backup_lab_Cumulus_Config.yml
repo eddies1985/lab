@@ -38,13 +38,20 @@
       flat: no
     loop: "{{cumulus_config_files}}"
 
+  - fetch: src=/etc/cumulus/acl/policy.d/{{ item }} dest=/var/config-backup/cumulus/{{ansible_hostname}}/acl/ flat=yes
+      with_items: "{{ files_to_copy.stdout_lines }}"
+
+- name: backup ACL
+  shell:  find . -maxdepth 1 -type f) | cut -d'/' -f2
+   chdir:  /etc/cumulus/acl/policy.d/
+  register: acl_files_to_copy
+
   - name: copy_directories
-    synchronize:
-      mode: pull
+    fetch:
       src: "{{item}}"
       dest: "{{backup_dir}}/{{today.stdout }}/{{ansible_hostname}}/"
-      use_ssh_args: yes
-    loop: "{{cumulus_directories}}"
+    loop:
+      - "{{acl_files_to_copy}}"
 
 #  - shell: 'find {{backup_dir/{{today.stdout}} -maxdepth 10 -type f'
 #    register: files_to_send
