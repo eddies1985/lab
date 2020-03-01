@@ -19,21 +19,21 @@
 
   - name: net show config
     shell: 'net show config commands | grep net | grep -v dot1x | grep -v "del all" | grep -v "breakout 1x" > /home/cumulus/{{ansible_hostname}}_nclu'
-      #xxplanation of  grep commands
+      #Explanation of  grep commands
       # '| grep net' removes all non-net commands (e.g. comments)
       # '| grep -v dot1x removes dot1x commands when not configured, see internal Cumulus Networks bug CM-17143
       # '| grep -v "del all"' removes the del all command from the beginning of the output, otherwise replay won't be idempotent
 
   - name: fetch the nclu config  and store it locally
     fetch:
-      dest: "{{backup_dir}}/{{today.stdout }}/{{ansible_hostname}}/nclu"
+      dest: "{{backup_dir}}/{{today.stdout }}/nclu"
       src: "/home/cumulus/{{ansible_hostname}}_nclu"
       flat: yes
     # This task grabs the output from the previous command and stores it as a flat-file locally on the machine running ansible
 
   - name: fetch_single_files
     fetch:
-      dest: "{{backup_dir}}/{{today.stdout }}/{{ansible_hostname}}/"
+      dest: "{{backup_dir}}/{{today.stdout }}/"
       src: "{{ item }}"
       flat: no
     loop: "{{cumulus_config_files}}"
@@ -49,12 +49,12 @@
   - name: copy_directories
     fetch:
       src: "{{item}}"
-      dest: "{{backup_dir}}/{{today.stdout }}/{{ansible_hostname}}/"
+      dest: "{{backup_dir}}/{{today.stdout }}//"
     with_items:
       - "{{acl_files_to_copy.stdout_lines}}"
 
   - debug:
-     msg: "{{backup_dir}}/{{today.stdout }}/{{ansible_hostname}}/"
+     msg: "{{backup_dir}}/{{today.stdout }}/"
 
 #  - shell: 'find {{backup_dir/{{today.stdout}} -maxdepth 10 -type f'
 #    register: files_to_send
