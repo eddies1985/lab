@@ -26,7 +26,7 @@
 
   - name: fetch the nclu config  and store it locally
     fetch:
-      dest: "{{backup_dir}}/{{today.stdout }}/nclu"
+      dest: "{{backup_dir}}/{{today.stdout}}/"
       src: "/home/cumulus/{{ansible_hostname}}_nclu"
       flat: yes
     # This task grabs the output from the previous command and stores it as a flat-file locally on the machine running ansible
@@ -66,6 +66,16 @@
 #     dest: /swgwork/eddies/golden_lab/backup/
 #    run_once: True
 #    delegate_to: localost
+
+  - name: create_archive_for_mail
+    archive:
+      path:
+        - "{{backup_dir}}/{{today.stdout }}/{{inventory_hostname}}/*"
+      dest: "{{backup_dir}}/{{today.stdout }}/{{inventory_hostname}}.tgz"
+      format: gz
+    delegate_to: localhost
+  - shell: find "{{backup_dir}}/{{today.stdout }}/ -maxdepth 1 -type f -name "*.tgz"
+    register: files_to_send
 
   - import_role:
         name: send_mail
