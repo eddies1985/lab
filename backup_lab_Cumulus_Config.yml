@@ -45,7 +45,7 @@
       flat: no
     loop: "{{cumulus_config_files}}"
 
-  - shell: "find {{backup_dir/{{today.stdout}}" -maxdepth 10 -type f"
+  - shell: "find {{backup_dir/{{today.stdout}} -maxdepth 10 -type f"
     register: files_to_send
     run_once: True
 
