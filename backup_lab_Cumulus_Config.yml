@@ -40,8 +40,8 @@
 
 - name: backup ACL
   shell:  find . -maxdepth 1 -type f) | cut -d'/' -f2
-    args:
-     chdir:  /etc/cumulus/acl/policy.d/
+  args:
+    chdir:  /etc/cumulus/acl/policy.d/
   register: acl_files_to_copy
 
   - name: copy_directories
