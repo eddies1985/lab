@@ -44,11 +44,13 @@
      #chdir:  /etc/cumulus/acl/policy.d/
     register: acl_files_to_copy
 
+  - debug:
+     var: {{acl_files_to_copy.stdout_lines}} 
   - name: copy_directories
     fetch:
       src: "{{item}}"
       dest: "{{backup_dir}}/{{today.stdout }}/{{ansible_hostname}}/"
-    loop:
+    with_items:
       - "{{acl_files_to_copy.stdout_lines}}"
 
 #  - shell: 'find {{backup_dir/{{today.stdout}} -maxdepth 10 -type f'
