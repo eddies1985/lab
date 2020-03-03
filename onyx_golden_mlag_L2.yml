@@ -72,7 +72,7 @@
         name: onyx_upgrade
       when: software_upgrade == "True"
       tags: onyx_upgrade
-    - name: image install
+    #- name: image install
     #   onyx_command:
     #      commands: image install image-{{ cpu }}-{{ version }}.img
     # - name: image boot next and reload with upgrade_downgrade_force
