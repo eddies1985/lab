@@ -67,7 +67,7 @@ no mlag shutdown
 # interface mlag-port-channel
 
 {% for mlag_port in device.mpos %}
-{% for key,mport in mlag_port.iteritems() -%}
+{% for key,mport in mlag_port.items() -%}
     interface mlag-port-channel {{mport.id}}
     {% for port in mport.ports -%}
       interface ethernet 1/{{port}} mlag-channel-group {{mport.id}} mode {{mport.mode}}
@@ -98,7 +98,7 @@ vlan {{vlan}}
 {% endfor %}
 
 {% for mlag_port in device.mpos %}
-  {% for key,mport in mlag_port.iteritems() %}
+  {% for key,mport in mlag_port.items() %}
     {% if mport.l2_mode is defined -%}
       {% if 'access vlan ' in mport.l2_mode -%}
         interface mlag-port-channel {{mport.id}} switchport mode access

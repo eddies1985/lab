@@ -35,7 +35,6 @@ golden-leaf3 ansible_host=l-csi-gso-2410a1-025
 golden-leaf4 ansible_host=l-csi-gso-2410a1-026
 
 
-
 [golden_cumulus:vars]
 ansible_ssh_user=cumulus
 ansible_ssh_pass=CumulusLinux!
