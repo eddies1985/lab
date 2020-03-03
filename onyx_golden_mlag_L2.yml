@@ -57,12 +57,12 @@
       tags: change_hostname
 
 # Passwordless SSH to vdi should already be in place
-    - name: get_img_file
-      shell: scp eddies@{{vdi}}:/{{source_file}} .
-      args:
-          chdir: /var/images/
-      run_once: True
-      delegate_to: localhost
+#    - name: get_img_file
+#      shell: scp eddies@{{vdi}}:/{{source_file}} .
+#      args:
+#          chdir: /var/images/
+#      run_once: True
+#      delegate_to: localhost
 
     - name: fetch_image_to_switch
       onyx_command:
