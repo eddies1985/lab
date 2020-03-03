@@ -68,40 +68,40 @@
       onyx_command:
         commands: image fetch scp://eddies:eddies11@{{vdi}}:/{{source_file}}
 
-#    - import_role:
-#        name: onyx_upgrade
-#      when: software_upgrade == "True"
-#      tags: onyx_upgrade
+    - import_role:
+        name: onyx_upgrade
+      when: software_upgrade == "True"
+      tags: onyx_upgrade
     - name: image install
-      onyx_command:
-         commands: image install image-{{ cpu }}-{{ version }}.img
-    - name: image boot next and reload with upgrade_downgrade_force
-
-      onyx_config:
-          lines:
-            - image boot next
-            - configuration write
-            - no boot next fallback-reboot enable
-          backup: yes
-      when:
-       - force_upgrade_downgrade == "True"
-
-    - name: image boot next and reload without upgrade_downgrade_force
-      onyx_config:
-          lines:
-            - image boot next
-            - configuration write
-          backup: yes
-      when:
-        - force_upgrade_downgrade == "False"
-      ignore_errors: yes
-
-    - name: reload
-      onyx_config:
-          commands:
-              - reload
-      when: reload == "True"
-      ignore_errors: yes
+    #   onyx_command:
+    #      commands: image install image-{{ cpu }}-{{ version }}.img
+    # - name: image boot next and reload with upgrade_downgrade_force
+    #
+    #   onyx_config:
+    #       lines:
+    #         - image boot next
+    #         - configuration write
+    #         - no boot next fallback-reboot enable
+    #       backup: yes
+    #   when:
+    #    - force_upgrade_downgrade == "True"
+    #
+    # - name: image boot next and reload without upgrade_downgrade_force
+    #   onyx_config:
+    #       lines:
+    #         - image boot next
+    #         - configuration write
+    #       backup: yes
+    #   when:
+    #     - force_upgrade_downgrade == "False"
+    #   ignore_errors: yes
+    #
+    # - name: reload
+    #   onyx_config:
+    #       commands:
+    #           - reload
+    #   when: reload == "True"
+    #   ignore_errors: yes
 
     - import_role:
         name: onyx_wait
