@@ -1,5 +1,5 @@
 ---
-- name: copy_file_to_device
+#- name: copy_file_to_device
 #  net_put:
 #      dest: "{{ destination_folder }}"
 #      mode: binary
