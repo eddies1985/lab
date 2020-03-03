@@ -56,9 +56,9 @@
       when: change_hostname == "True"
       tags: change_hostname
 
-# Passwordless ssd to vdi should already be in place
+# Passwordless SSH to vdi should already be in place
     - name: get_img_file
-      shell: scp eddies@{{vdi}}:/{{source_file}}" .
+      shell: scp eddies@{{vdi}}:/{{source_file}} .
       args:
           chdir: /var/images/
       run_once: True
