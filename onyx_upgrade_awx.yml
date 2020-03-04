@@ -9,13 +9,12 @@
   vars:
     ansible_network_os: onyx
     local_path: "/mswg/release/sx_mlnx_os/"
-    vdi: 10.228.128.107
     cpu: "X86_64"   # X86_64 | PPC_M460EX
     user: user
     password: password
-    force_upgrade_downgrade: "False"
+    force_upgrade_downgrade: False
     version: 3.9.0300
-    skip_version_check: "False"
+    skip_version_check: False
     transfer_protocol: scp
     source_file1: "{{local_path}}/sx_mlnx_os-{{ version }}/{{ cpu  }}/image-{{ cpu }}-{{ version }}.img"
     source_file2: "{{local_path}}/image-{{ cpu }}-{{ version }}.img"
@@ -52,7 +51,7 @@
       - meta: end_host
       when:
           - current_version == version
-          - skip_version_check == "False"
+          - skip_version_check == False
 
 # in case current version is not the same same as the needed version - start the upgrade
 
@@ -90,7 +89,7 @@
 
       - name: fetch_image_to_switch
         onyx_command:
-          commands: image fetch scp://{{remote_server_user}}:{{remote_server_password}}@{{remote_server}}:/{{source_file1}}
+          commands: image fetch {{transfer_protocol}}://{{remote_server_user}}:{{remote_server_password}}@{{remote_server}}:/{{img_file1}}
 
 # Copy image file to the switch using the net_put module using scp
 
@@ -146,7 +145,7 @@
               - configuration write
             backup: yes
         when:
-          - force_upgrade_downgrade != "True"
+          - force_upgrade_downgrade != True
       #  ignore_errors: yes
         tags: boot_next
 
