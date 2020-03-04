@@ -163,7 +163,7 @@
       - name: wait for switch to reboot
         delegate_to: localhost
         wait_for:
-         host: "{{ ansible_hostname }}"
+         host: "{{ ansible_host }}"
          port: 22
          delay: 160
          timeout: 800
