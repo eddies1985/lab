@@ -34,5 +34,6 @@
       - interface mgmt0 dhcp hostname
       - configuration write
       - reload force
+     match: none  
   register: output
   ignore_errors: yes
