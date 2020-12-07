@@ -28,11 +28,10 @@
       #- configuration copy {{filename.stdout}} initial
       #- configuration switch-to initial no-reboot
       #- configuration delete {{filename.stdout}}
-
+      - no password hardening enable
       - username admin password admin
       - username monitor password monitor
       - interface mgmt0 dhcp hostname
-      - no password hardening enable
       - configuration write
       - reload force
   register: output
