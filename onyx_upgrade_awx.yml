@@ -23,7 +23,7 @@
     local_img_dir: /var/images/
     reload: True
     ignore_net_errors: "True"
-    remote_server: 10.228.128.107
+    remote_server: 10.228.128.178
     remote_server_user: eddies
     remote_server_password: eddies11
   remote_user: admin
@@ -146,7 +146,7 @@
               - configuration write
             backup: yes
         when:
-          - force_upgrade_downgrade != True
+          - force_upgrade_downgrade != "True"
       #  ignore_errors: yes
         tags: boot_next
 
@@ -159,7 +159,7 @@
         ignore_errors: yes
         tags: reload
 
-        # use wait_for to wait for port 22 to be available on the switch after reboot
+        # use wait_for to wait for port 22 [SSH] to be available on the switch after reboot
       - name: wait for switch to reboot
         delegate_to: localhost
         wait_for:
