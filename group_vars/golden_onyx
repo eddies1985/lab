@@ -5,7 +5,7 @@ global:
   default_ipl_vlan: 4094
   default_ipl_po: 1
   default_l2_mode: trunk
-  default_mtu: 1500
+  default_mtu: 9216
   stp_mode: rst
   vlans:
      - 1-100
