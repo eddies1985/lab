@@ -67,6 +67,9 @@
     - name: fetch_image_to_switch
       onyx_command:
         commands: image fetch scp://eddies:eddies11@{{vdi}}:/{{source_file}}
+      when: software_upgrade == "True"
+      tags: image_fetch
+
 
     - import_role:
         name: onyx_upgrade
