@@ -30,7 +30,7 @@
     change_hostname: "True"
     ignore_net_errors: "True"
     log_path: ./ansible.log
-    vdi: 10.228.128.107
+    vdi: 10.228.128.178
     debug: True
   tasks:
     - import_role:
