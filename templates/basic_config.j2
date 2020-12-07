@@ -5,7 +5,7 @@ clock timezone Asia Middle_East Jerusalem
 {% if ntp_server is defined %}
 
 ntp server {{ntp_server}}
-ntpdate {{ntp_server}}
+ntpdate vrf mgmt {{ntp_server}}
 
 {% else %}
 
