@@ -19,7 +19,8 @@ ansible_ssh_pass=admin
 golden-spine1 ansible_host=l-csi-gso-2100a1-0271
 golden-spine2 ansible_host=l-csi-gso-2100a1-0272
 golden-leaf1 ansible_host=l-csi-gso-2700-023
-golden-leaf2 ansible_host=l-csi-gso-2700-024
+#golden-leaf2 ansible_host=l-csi-gso-2700-024
+golden-leaf2 ansible_host=l-csi-2700-0209
 golden-leaf3 ansible_host=l-csi-gso-2410a1-025
 golden-leaf4 ansible_host=l-csi-gso-2410a1-026
 
@@ -27,7 +28,8 @@ golden-leaf4 ansible_host=l-csi-gso-2410a1-026
 golden-spine1 ansible_host=l-csi-gso-2100a1-0271
 golden-spine2 ansible_host=l-csi-gso-2100a1-0272
 golden-leaf1 ansible_host=l-csi-gso-2700-023
-golden-leaf2 ansible_host=l-csi-gso-2700-024
+#golden-leaf2 ansible_host=l-csi-gso-2700-024
+golden-leaf2 ansible_host=l-csi-2700-0209
 
 [golden_cumulus]
 
