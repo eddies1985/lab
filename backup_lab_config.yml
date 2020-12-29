@@ -58,13 +58,13 @@
       mail_server: "10.0.8.70"
       mail_subject: "GSO Network Golden lab: ONYX devices configuration files backup {{today.stdout}}"
       attach: "{{ files_to_send.stdout_lines }}"
-      mail_from: "eddies@mellanox.com"
+      mail_from: "eddies@nvidia.com"
       mail_to_list:
-         - eddies@mellanox.com
-         - hagaia@mellanox.com
-         - marlon@mellanox.com
-         - denisyu@mellanox.com
-         - oria@mellanox.com
+         - eddies@nvidia.com
+         - hagaia@nvidia.com
+         - marlon@nvidia.com
+         - denisyu@nvidia.com
+         - oria@nvidia.com
       secure: "{{send_mail_secure}}"
     when: send_mail == "True"
     tags: send_mail
