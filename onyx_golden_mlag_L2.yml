@@ -24,13 +24,15 @@
     remote_ip: remote_server
     internal_network: "no"
     ntp_server: "10.4.0.134"
-    version: 3.9.0300
+    version: 3.9.2006
     source_file: "{{local_path}}/sx_mlnx_os-{{ version }}/{{ cpu  }}/image-{{ cpu }}-{{ version }}.img"
     software_upgrade: "False"
     change_hostname: "True"
     ignore_net_errors: "True"
     log_path: ./ansible.log
-    vdi: 10.228.128.178
+    remote_server_ip: 10.228.129.138
+    remote_server_user: eddies
+    remote_server_password: "eddies11"
     debug: True
   tasks:
     - import_role:
@@ -66,7 +68,7 @@
 
     - name: fetch_image_to_switch
       onyx_command:
-        commands: image fetch scp://eddies:eddies11@{{vdi}}:/{{source_file}}
+        commands: image fetch scp://{{remote_server_user}}:{{remote_server_password}}@{{remote_server_ip}}:/{{source_file}}
       when: software_upgrade == "True"
       tags: image_fetch
 
@@ -104,12 +106,12 @@
        mail_body: "Playbook used: {{ansible_play_name}} "
        mail_server: "10.0.8.70"
        mail_subject: "GSO Network Golden lab: do-not-reply: {{ inventory_hostname }} has been successfully provisioned"
-       mail_from: "eddies@mellanox.com"
+       mail_from: "eddies@nvidia.com"
        mail_to_list:
-          - eddies@mellanox.com
-          - hagaia@mellanox.com
-          - marlon@mellanox.com
-          - denisyu@mellanox.com
-          - oria@mellanox.com
+          - eddies@nvidia.com
+          - hagaia@nvidia.com
+          - marlon@nvidia.com
+          - denisyu@nvidia.com
+          - oria@nvidia.com
       when: send_mail == "True"
       tags: send_mail == "True"

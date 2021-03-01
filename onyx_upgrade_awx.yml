@@ -14,7 +14,7 @@
     user: user
     password: password
     force_upgrade_downgrade: False
-    version: 3.9.0300
+    version: 3.9.2006
     skip_version_check: False
     transfer_protocol: scp
     source_file1: "{{local_path}}/sx_mlnx_os-{{ version }}/{{ cpu  }}/image-{{ cpu }}-{{ version }}.img"
@@ -23,9 +23,9 @@
     local_img_dir: /var/images/
     reload: True
     ignore_net_errors: "True"
-    remote_server: 10.228.128.178
+    remote_server: 10.7.156.109
     remote_server_user: eddies
-    remote_server_password: eddies11
+    remote_server_password: fu
   remote_user: admin
   tasks:
 
