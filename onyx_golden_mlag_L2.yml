@@ -81,19 +81,19 @@
         commands: 'show vrf | include "Name: mgmt"'
       register: vrf_mgmt
 
-    - name: fetch_image_to_switch_default_vrf
+    - name: fetch_image_to_switch_vrf_default
       onyx_command:
         commands: image fetch scp://{{remote_server_user}}:{{remote_server_password}}@{{remote_server_ip}}:/{{source_file}}
      
-      tags: image_fetch
+      tags: image_fetch_vrf_default
       when: 
         - software_upgrade == "True"
         - 'not vrf_mgmt.stdout is search("Name: mgmt")'
 
-    - name: fetch_image_to_switch_default_vrf
+    - name: fetch_image_to_switch_vrf_mgmt
       onyx_command:
         commands: image fetch vrf mgmt scp://{{remote_server_user}}:{{remote_server_password}}@{{remote_server_ip}}:/{{source_file}}
-      tags: image_fetch
+      tags: image_fetch_vrf_mgmt
       when: 
        - software_upgrade == "True"
        - 'vrf_mgmt.stdout is search("Name: mgmt")'
