@@ -72,6 +72,7 @@ no mlag shutdown
 {% for key,mport in mlag_port.items() -%}
     interface mlag-port-channel {{mport.id}}
     {% for port in mport.ports -%}
+      interface ethernet 1/{{port}} mtu {{ global.default_mtu }} force
       interface ethernet 1/{{port}} mlag-channel-group {{mport.id}} mode {{mport.mode}}
 {% endfor %}
     {% if mport.description is string -%}
