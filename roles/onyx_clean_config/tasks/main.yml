@@ -28,7 +28,7 @@
       #- configuration copy {{filename.stdout}} initial
       #- configuration switch-to initial no-reboot
       #- configuration delete {{filename.stdout}}
-      match: none  
+     match: none  
 
 - name: clean_config_disable_password_hardening
   onyx_config:
