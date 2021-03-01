@@ -50,7 +50,7 @@ devices:
         mode: active
         ports:
           - 1
-          - 4
+          - 3
           - 11
           - 14
 
@@ -64,7 +64,7 @@ devices:
        description: uplink
        mode: active
        ports:
-        - 2
+        - 1
         - 3
         - 12
         - 13
