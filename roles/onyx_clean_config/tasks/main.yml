@@ -19,7 +19,7 @@
 
 - debug:
    msg: "{{filename.stdout}}"
-- name: clean_config
+- name: clean_config part 1
   onyx_config:
      lines:
       - configuration new {{ inventory_hostname }}-{{filename.stdout}} factory keep-connect keep-basic
@@ -28,7 +28,18 @@
       #- configuration copy {{filename.stdout}} initial
       #- configuration switch-to initial no-reboot
       #- configuration delete {{filename.stdout}}
+      match: none  
+
+- name: clean_config_disable_password_hardening
+  onyx_config:
+     lines:
       - no password hardening enable
+     match: none  
+  when: current_version is search("3.9.2")
+
+- name: clean_config_set_admin_and_monitor_passwords
+  onyx_config:
+     lines:
       - username admin password admin
       - username monitor password monitor
       - interface mgmt0 dhcp hostname

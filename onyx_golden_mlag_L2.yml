@@ -35,6 +35,16 @@
     remote_server_password: "eddies11"
     debug: True
   tasks:
+    - name: get_current_switch_version
+      onyx_command:
+        commands: show version concise
+      register: curr_version
+
+# save the onyx version as a fact named current_version
+    - name: set_fact_current_version
+      set_fact:
+        current_version: "{{curr_version.stdout[0].split()[1] }}"
+
     - import_role:
         name: onyx_clean_config
       tags: clean_config
@@ -66,12 +76,24 @@
 #      run_once: True
 #      delegate_to: localhost
 
-    - name: fetch_image_to_switch
+    - name: check_mgmt_vrf
+      onyx_command:
+        commands: show vrf | include "Name: mgmt"
+      register: vrf_mgmt
+
+    - name: fetch_image_to_switch_default_vrf
       onyx_command:
         commands: image fetch scp://{{remote_server_user}}:{{remote_server_password}}@{{remote_server_ip}}:/{{source_file}}
       when: software_upgrade == "True"
       tags: image_fetch
+      when: '"Name: mgmt" not in vrf_mgmt.stdout'
 
+    - name: fetch_image_to_switch_default_vrf
+      onyx_command:
+        commands: image fetch vrf mgmt scp://{{remote_server_user}}:{{remote_server_password}}@{{remote_server_ip}}:/{{source_file}}
+      when: software_upgrade == "True"
+      tags: image_fetch
+      when: vrf_mgmt.stdout is search('Name: mgmt')
 
     - import_role:
         name: onyx_upgrade
