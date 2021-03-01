@@ -39,6 +39,8 @@ interface port-channel  {{mlag_cluster.ipl_lag_id}}
 # ipl lag
 
 {% for port in mlag_cluster.ipl_ports -%}
+  interface port-channel  {{mlag_cluster.ipl_lag_id}} mtu {{ global.default_mtu }}
+  interface ethernet 1/{{port}} mtu {{ global.default_mtu }} force
   interface ethernet 1/{{port}} channel-group {{ mlag_cluster.ipl_lag_id }} mode active
 {% endfor %}
 interface port-channel {{mlag_cluster.ipl_lag_id}} dcb priority-flow-control mode on force
