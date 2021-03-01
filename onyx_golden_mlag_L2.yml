@@ -86,14 +86,14 @@
         commands: image fetch scp://{{remote_server_user}}:{{remote_server_password}}@{{remote_server_ip}}:/{{source_file}}
       when: software_upgrade == "True"
       tags: image_fetch
-      when: not vrf_mgmt.stdout is search("Name: mgmt")
+      when: 'not vrf_mgmt.stdout is search("Name: mgmt")'
 
     - name: fetch_image_to_switch_default_vrf
       onyx_command:
         commands: image fetch vrf mgmt scp://{{remote_server_user}}:{{remote_server_password}}@{{remote_server_ip}}:/{{source_file}}
       when: software_upgrade == "True"
       tags: image_fetch
-      when: vrf_mgmt.stdout is search("Name: mgmt")
+      when: 'vrf_mgmt.stdout is search("Name: mgmt")'
 
     - import_role:
         name: onyx_upgrade
