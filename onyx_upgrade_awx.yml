@@ -25,7 +25,7 @@
     ignore_net_errors: "True"
     remote_server: 10.7.156.109
     remote_server_user: eddies
-    remote_server_password: fu
+    remote_server_password: eddies11
   remote_user: admin
   tasks:
 
