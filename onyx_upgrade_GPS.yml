@@ -7,18 +7,35 @@
   become_method: enable
   vars:
     ansible_network_os: onyx
+     
+    # allow downgrade no mattehr what - "no boot next fallback-reboot enable"
     force_upgrade_downgrade: False
+
+    # fetch the image from a remote server
     fetch: True
+
+# which protocol to use to fetch them img file from
+#
     transfer_protocol: scp
-    server_ip: ""
-    server_user: ""
+# remote server IP
+#
+   server_ip: ""
+# remote server username  
+  server_user: ""
+# remote server password for mentioned username
     server_password: ""
+
+# full path to img file on remote server
     img_file: ""
+# fail task if image file dones't exist on switch when we want to start the ujpgrade
     fail_on_file: True
     destination_folder: /var/opt/tms/images/
+# reload after the image install?
     reload: True
+# backup conf before upgrade?
     e_config_backup: true
     config_backup: "{{ e_config_backup  | bool }}"
+# in case of mgmt vrf use the vrf mgmt in this variable to fetch the image
     fetch_prefix: " "
   remote_user: admin
   tasks:
