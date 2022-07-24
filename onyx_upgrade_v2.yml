@@ -150,7 +150,7 @@
         wait_for:
          host: "{{ inventory_hostname }}"
          port: 22
-         delay: 160
+         delay: 360
          timeout: 800
         become: false
         tags: wait_for_ssh

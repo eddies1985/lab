@@ -19,6 +19,7 @@ QA
 golden_onyx
 skyway
 skyway_topo
+obs_ptp
 
 [ONYX:vars]
 ansible_network_os=onyx
@@ -26,6 +27,12 @@ ansible_become=yes
 ansible_become_method=enable
 ansible_ssh_user=admin
 ansible_ssh_pass=admin
+
+[obs_ptp]
+l-csi-2410-0227
+l-csi-2410a1-tmp-20
+l-csi-2010-tmp01
+l-csi-2100-tmp-25
 
 [skyway]
 l-csi-skyway-01
@@ -73,6 +80,7 @@ l-csi-sn2700-loan-02
 l-csi-3700-11
 l-csi-3700-07
 l-csi-3700-03
+l-csi-3700-04
 l-csi-2410a1-tmp-16
 l-csi-2700-l09
 l-csi-2010a1-03
@@ -205,7 +213,6 @@ onyx_vm4 ansible_host=Onyx-VM-4
 r-qa-sw-eth-107 ansible_host=10.209.22.202
 
 [cumulus]
-l-csi-2100-tmp-25 ansible_ssh_user=cumulus ansible_ssh_pass=cumulus
 ae-2100-4 ansible_ssh_user=cumulus ansible_ssh_pass=CumulusLinux! ansible_become_method=sudo ansible_become_password=CumulusLinux!
 l-csi-2010-tmp02 ansible_ssh_user=cumulus ansible_ssh_pass=CumulusLinux!
 10.7.159.118 ansible_ssh_user=cumulus ansible_ssh_pass=CumulusLinux!

@@ -21,8 +21,8 @@
     password: password
     remote_ip: remote_server
     internal_network: "no"
-    ntp_server: "216.239.35.0"
-    version: 3.8.2204
+    ntp_server: "10.4.0.134"
+    version: 3.9.2006
     source_file: "{{local_path}}/sx_mlnx_os-{{ version }}/{{ cpu  }}/image-{{ cpu }}-{{ version }}.img"
     software_upgrade: "False"
     log_path: ./ansible.log
@@ -37,7 +37,7 @@
          cpu: default = X86_64
          user: default = root
          password: default = password
-         ntp_server: default = 216.239.35.0
+         ntp_server: default = 10.4.0.134
          version: default = NA
          software_upgrade: default = no
          log_path: default = ./ansible_log

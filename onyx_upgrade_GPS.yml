@@ -19,6 +19,7 @@
     reload: True
     e_config_backup: true
     config_backup: "{{ e_config_backup  | bool }}"
+    fetch_prefix: " "
   remote_user: admin
   tasks:
 
@@ -75,7 +76,7 @@
      # fetch the image file using a cli command
         - name: fetch_image
           onyx_command:
-              commands: image fetch {{transfer_protocol}}://{{server_user}}:{{server_password}}@{{server_ip}}:/{{img_file}}
+              commands: image fetch {{fetch_prefix}} {{transfer_protocol}}://{{server_user}}:{{server_password}}@{{server_ip}}:/{{img_file}}
           tags: fetch_image
           when:
             - fetch | bool
