@@ -19,9 +19,9 @@
     transfer_protocol: scp
 # remote server IP
 #
-   server_ip: ""
+    server_ip: ""
 # remote server username  
-  server_user: ""
+    server_user: ""
 # remote server password for mentioned username
     server_password: ""
 
@@ -37,7 +37,7 @@
     config_backup: "{{ e_config_backup  | bool }}"
 # in case of mgmt vrf use the vrf mgmt in this variable to fetch the image
     fetch_prefix: " "
-  remote_user: admin
+    remote_user: admin
   tasks:
 
 # get current switch Onyx version with command "show version concise" and save it to a variable named curr_version
