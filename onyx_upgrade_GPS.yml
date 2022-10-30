@@ -37,7 +37,6 @@
     config_backup: "{{ e_config_backup  | bool }}"
 # in case of mgmt vrf use the vrf mgmt in this variable to fetch the image
     fetch_prefix: " "
-    remote_user: admin
   tasks:
 
 # get current switch Onyx version with command "show version concise" and save it to a variable named curr_version
